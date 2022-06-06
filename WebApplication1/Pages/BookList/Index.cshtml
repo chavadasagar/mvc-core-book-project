@@ -1,0 +1,55 @@
+﻿@page
+@model WebApplication1.Pages.BookList.IndexModel
+@{
+}
+
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">Book List</h2>
+    </div>
+    <div class="col-3">
+        <a class="btn btn-info form-control text-white" asp-page="Create">Create New Book</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Books.Count() > 0)
+            {
+                <table class="table table-striped border" id="mytable">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label asp-for="Books.FirstOrDefault().name"></label>
+                            </th>
+                            <th>
+                                <label asp-for="Books.FirstOrDefault().author"></label>
+                            </th>
+                            <th>
+                                <label asp-for="Books.FirstOrDefault().isbn"></label>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var itm in Model.Books)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(m=>itm.name)</td>
+                                <td>@Html.DisplayFor(m=>itm.author)</td>
+                                <td>@Html.DisplayFor(m=>itm.isbn)</td>
+                                <td>
+                                    <button asp-page-handler="delete" onclick="return confirm('confirm delete this ??')" class="btn btn-danger btn-sm" asp-route-id="@itm.id">Delete</button>
+                                    <a asp-route-id="@itm.id" asp-page="Edit" class="btn btn-success btn-sm">Edit</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No Book Available</p>
+            }
+        </form>
+    </div>
+</div>
